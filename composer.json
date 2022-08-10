@@ -1,0 +1,19 @@
+{
+    "name": "vendor/name",
+    "description": "app studentTendency",
+    "autoload": {
+        "psr-4": {
+            "Vendor\\Name\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jorge correa",
+            "email": "jorge7712051@hotmail.com"
+        }
+    ],
+    "require": {
+        "facebook/graph-sdk": "^5.7",
+        "google/apiclient": "2.12.1"
+    }
+}
