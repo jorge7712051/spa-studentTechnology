@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  
   $("#close-sesion").click(function(){
     let url= $(this).data("url")
     $.ajax({

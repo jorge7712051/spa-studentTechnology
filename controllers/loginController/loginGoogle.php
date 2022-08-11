@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__, 3) . '/models/user.php';
+
 class LoginGoogle
 {
     private $token;
@@ -64,11 +66,11 @@ class LoginGoogle
   
     public function auth2Token()
     { 
+      $userObj=[];
       $google_oauth = new Google_Service_Oauth2($this->getClient());
       $google_account_info = $google_oauth->userinfo->get();
       
-      $email =  $google_account_info->email;
-      $name =  $google_account_info->image;
+            
       
   
       if (!isset($_SESSION['access_token'])) {
@@ -77,7 +79,9 @@ class LoginGoogle
   
       if (!isset($_SESSION['email'])) {
         
-        $_SESSION['email'] = $email;
+        $_SESSION['email'] = $google_account_info->email;
+        $userObj["username"] = $google_account_info->name;
+        $userObj["userEmail"]= $_SESSION['email'];
       }
   
       if (!isset($_SESSION['photo'])) {
@@ -88,6 +92,11 @@ class LoginGoogle
   
          $_SESSION['logueo'] = true;
       }
+
+      $user = new User;
+      $response = $user->createUser($userObj);
+   
+      $_SESSION['iduser'] = $response->id;
   
       // OAuth 2.0 client handler
   

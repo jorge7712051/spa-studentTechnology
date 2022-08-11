@@ -1,5 +1,6 @@
 <?php
 //session_start();
+require_once dirname(__FILE__, 3) . '/models/user.php';
 
 class LoginFacebook
 {
@@ -20,7 +21,7 @@ class LoginFacebook
 
     $this->setHelper($fb->getRedirectLoginHelper());
     $permissions = ['email']; // Permisos opcionales
-    $loginUrl = $this->getHelper()->getLoginUrl('http://localhost/simulationPage/views/encuesta.php', $permissions);
+    $loginUrl = $this->getHelper()->getLoginUrl(ROOTPAGE, $permissions);
     
     $this->setUrl($loginUrl);
     $this->setFb($fb);
@@ -67,6 +68,8 @@ class LoginFacebook
 
   public function auth2Token()
   {
+ 
+    $userObj=[];
 
     if (!isset($_SESSION['access_token'])) {
       $_SESSION['access_token'] = (string) $this->getToken();
@@ -76,6 +79,8 @@ class LoginFacebook
       $response = $this->getFb()->get('/me?fields=name,first_name,last_name,email', $this->getToken());
       $userInfo=$response->getGraphUser();
       $_SESSION['email'] = $userInfo['email'];
+      $userObj["username"] = $userInfo['name'];
+      $userObj["userEmail"]= $userInfo['email'];
     }
 
     if (!isset($_SESSION['photo'])) {
@@ -89,6 +94,13 @@ class LoginFacebook
 
        $_SESSION['logueo'] = true;
     }
+
+    
+    
+    $user = new User;
+    $response = $user->createUser($userObj);
+   
+    $_SESSION['iduser'] = $response->id;
 
     // OAuth 2.0 client handler
 

@@ -1,37 +1,48 @@
 <?php
+require_once dirname(__FILE__, 3) . '/models/technology.php';
 
-
-//$url = 'https://www.facebook.com/logout.php?next=http://localhost/simulationPage/views/encuesta.php' .    '&access_token=' . $_SESSION['access_token'];
-
-//session_destroy();
-
-
-https: //www.facebook.com/logout.php?next=url&access_token=token
-
-
-// header("Location: http://localhost/simulationPage/views/encuesta.php");        
+$technology = new Technology;
+$response = $technology->getTechnology();
 ?>
+<link href="<?php echo ROOTMODULE . "/public/css/login.css"; ?>" rel="stylesheet">
 
-<dv iclass="container">
+<div class="container">
     <div class="row">
-        <div class="col l6 offset-l3">
-            <?php  require_once dirname(__FILE__,2).'/login/userBar.php'; ?>
-            <form class="col l12">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">email</i>
-                        <input id="email" type="email" class="validate">
-                        <label for="email">Correo Electronico</label>
+        <div class="col l8 offset-l2">
+            <div class="section">
+                <?php require_once dirname(__FILE__, 2) . '/login/userBar.php'; ?>
+            </div>
+            <div class="section">
+
+                <form class="col l12 formQuiz purple lighten-5">
+                    <div class="row">
+                        <h6>¿Qué tecnologia le gustaria que se dictara en la carrera?</h6>
+                        <?php echo $response; ?>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="password" type="password" class="validate">
-                        <label for="password">Password</label>
+                    <div class="row" style="margin-top: 50px;">
+                        <h6>Otra ¿Cúal?</h6>
+                        <div class="input-field col s12">
+                            <input  id="first_name" type="text" class="validate">
+                        </div>
                     </div>
-                </div>
-            </form>
+                    <div class="row">
+                        <h6>Sugerencia</h6>
+                        <div class="input-field col s12">
+                            <textarea id="textarea1" class="materialize-textarea"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h6>Linkedin</h6>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix fa-brands fa-linkedin"></i>
+                            <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action" style="margin-bottom: 20px; width:100%">Guardar Respuestas
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -3,3 +3,16 @@
 {
        background-color: #ffebee    ; 
 }
+
+.no-padding
+{
+       padding: 0px !important;
+}
+.googleBtn a
+{
+     color:  black;
+}
+
+.formQuiz div{
+       padding-left: 10px;
+}
